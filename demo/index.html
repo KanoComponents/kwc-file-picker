@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>kwc-file-picker-list demo</title>
+
+        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+        <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+        <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+        <link rel="import" href="../kwc-file-picker-list.html">
+
+        <custom-style>
+            <style is="custom-style" include="demo-pages-shared-styles">
+                [hidden] {
+                    display: none !important;
+                }
+            </style>
+        </custom-style>
+    </head>
+
+    <body>
+        <div class="vertical-section-container centered">
+            <h3>Basic kwc-file-picker-list demo</h3>
+            <demo-snippet>
+                <template>
+                    <!-- A template is required to render the elements of a directory -->
+                    <kwc-file-picker-list id="list">
+                        <template>
+                            <button path-name$="[[item.name]]">[[item.name]]</button>
+                        </template>
+                    </kwc-file-picker-list>
+                    <script>
+                        const list = document.getElementById('list');
+                        list.rootDir = {
+                            name: 'My files',
+                            children: [{
+                                name: 'jump',
+                                children: [{
+                                    name: 'to',
+                                    children: [{
+                                        name: 'the',
+                                        children: [{
+                                            name: 'beat'
+                                        }, {
+                                            name: 'music'
+                                        }]
+                                    }]
+                                }]
+                            }]
+                        };
+                    </script>
+                </template>
+            </demo-snippet>
+            <h3>Customised kwc-file-picker-list demo</h3>
+            <demo-snippet>
+                <template>
+                    <kwc-file-picker-list id="custom-list">
+                        <template slot="breadcrumbs">
+                            <span hidden$="[[!index]]">&gt;</span>
+                            <span path-index$="[[index]]">[[item]]</span>
+                        </template>
+                        <template>
+                            <div>
+                                <button class="item" path-name$="[[item.name]]" hidden$="[[!item.children]]">
+                                    <span>[[item.name]]</span>
+                                    <span>&gt;</span>
+                                </button>
+                                <div class="item" hidden$="[[item.children]]">
+                                    <span>[[item.name]]</span>
+                                </div>
+                            </div>            
+                        </template>
+                    </kwc-file-picker-list>
+                    <style>
+                        .item {
+                            display: flex;
+                            border: 0px;
+                            padding: 7px;
+                            width: 100%;
+                            cursor: pointer;
+                            background: white;
+                            font-size: 16px;
+                        }
+                        .item:hover {
+                            background: lightgrey;
+                        }
+                        .item>* {
+                            pointer-events: none;
+                        }
+                        .item>span:first-of-type {
+                            flex: 1;
+                            text-align: left;
+                        }
+                    </style>
+                    <script>
+                        const customList = document.getElementById('custom-list');
+                        customList.rootDir = {
+                            name: 'My files',
+                            children: [{
+                                name: 'jump',
+                                children: [{
+                                    name: 'to',
+                                    children: [{
+                                        name: 'the',
+                                        children: [{
+                                            name: 'beat'
+                                        }, {
+                                            name: 'music'
+                                        }]
+                                    }]
+                                }]
+                            }]
+                        };
+                    </script>
+                </template>
+            </demo-snippet>
+        </div>
+    </body>
+
+</html>

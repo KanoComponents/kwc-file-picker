@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>kwc-file-picker-list test</title>
+
+        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+        <script src="../../web-component-tester/browser.js"></script>
+
+        <link rel="import" href="../kwc-file-picker-list.html">
+    </head>
+
+    <body>
+        <test-fixture id="basic">
+            <template>
+                <kwc-file-picker-list>
+                    <template>
+                        <span>[[item.label]]</span>
+                    </template>
+                </kwc-file-picker-list>
+            </template>
+        </test-fixture>
+
+        <script>
+            suite('kwc-file-picker-list', function () {
+                test('instantiating the element works', function () {
+                    var element = fixture('basic');
+                    assert.equal(element.is, 'kwc-file-picker-list');
+                });
+
+                test('defaults to the root', function () {
+                    var element = fixture('basic');
+                    const ROOT_NAME = 'ROOT';
+                    const CHILD_NAME = 'CHILD';
+                    const TREE = {
+                        name: ROOT_NAME,
+                        children: [{
+                            name: CHILD_NAME
+                        }]
+                    };
+                    element.rootDir = TREE;
+                    assert.equal(element.directory, TREE);
+                    assert.equal(element.fileList, TREE.children);
+                });
+
+                test('tree props can be customized', function () {
+                    var element = fixture('basic');
+                    const ROOT_NAME = 'ROOT';
+                    const CHILD_NAME = 'CHILD';
+                    const TREE = {
+                        label: ROOT_NAME,
+                        kids: [{
+                            label: CHILD_NAME
+                        }]
+                    };
+                    element.nameProp = 'label';
+                    element.childrenProp = 'kids';
+                    element.rootDir = TREE;
+                    assert.equal(element.directory, TREE);
+                });
+
+                test('can select item', function () {
+                    var element = fixture('basic');
+                    const ROOT_NAME = 'ROOT';
+                    const CHILD_NAME = 'CHILD';
+                    const TARGET_NAME = 'TARGET';
+                    const PATH = `/${ROOT_NAME}/${CHILD_NAME}`;
+                    const TREE = {
+                        name: ROOT_NAME,
+                        children: [{
+                            name: CHILD_NAME,
+                            children: [
+                                { name: 'name1' },
+                                { name: TARGET_NAME }
+                            ]
+                        }]
+                    };
+                    element.rootDir = TREE;
+                    element.select(TARGET_NAME, PATH);
+                    assert.equal(element.selectedPath, PATH);
+                    assert.equal(element.selectedIndex, 1);
+                });
+
+                test('can jump to selection', function () {
+                    var element = fixture('basic');
+                    const ROOT_NAME = 'ROOT';
+                    const CHILD_NAME = 'CHILD';
+                    const TARGET_NAME = 'TARGET';
+                    const TREE = {
+                        name: ROOT_NAME,
+                        children: [{
+                            name: CHILD_NAME,
+                            children: [
+                                { name: 'name1' },
+                                { name: TARGET_NAME }
+                            ]
+                        }]
+                    };
+                    element.rootDir = TREE;
+                    element.select(TARGET_NAME, `/${ROOT_NAME}/${CHILD_NAME}`);
+                    element.goToSelected();
+                    assert.equal(element.directory.name, TREE.children[0].name);
+                });
+            });
+        </script>
+    </body>
+
+</html>

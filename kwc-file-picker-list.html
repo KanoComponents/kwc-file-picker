@@ -1,0 +1,54 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-list/iron-list.html">
+<link rel="import" href="./kwc-file-manager-behavior.html">
+<link rel="import" href="./kwc-file-breadcrumbs.html">
+
+<!--
+`kwc-file-picker-list`
+Display a list of items from a tree as a file picker would.
+
+Simple customisable list view for a file explorer. Uses the KwcFileManagerBehavior to provide
+a file explorer model and displays breadcrumbs and the contents of the current folder.
+
+You must provide a template in the slot with at least one element inside for the rendering of items.
+The available properties will be the `item` selected and its `index`
+
+You can provide a custom breadcrumbs instance by giving it to the matching slot.
+
+Example:
+
+    <kwc-file-picker-list>
+        <template>
+            <span>[[item.name]]</span>
+        </template>
+    </kwc-file-picker-list>
+
+@group Kano Elements
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<dom-module id="kwc-file-picker-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <kwc-file-breadcrumbs parts="[[breadcrumbs]]">
+            <slot name="breadcrumbs"></slot>
+        </kwc-file-breadcrumbs>
+        <iron-list items="[[fileList]]" as="item">
+            <slot></slot>
+        </iron-list>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'kwc-file-picker-list',
+            behaviors: [
+                Kano.KwcFileManagerBehavior
+            ]
+        });
+    </script>
+</dom-module>

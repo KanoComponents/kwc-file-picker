@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>kwc-file-picker-list demo</title>
+
+        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+        <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+        <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+        <link rel="import" href="../kwc-file-breadcrumbs.html">
+
+        <custom-style>
+            <style is="custom-style" include="demo-pages-shared-styles">
+                span.custom {
+                    color: red;
+                }    
+            </style>
+        </custom-style>
+    </head>
+
+    <body>
+        <div class="vertical-section-container centered">
+            <h3>Basic kwc-file-breadcrumbs demo</h3>
+            <demo-snippet>
+                <template>
+                    <kwc-file-breadcrumbs id="list"></kwc-file-breadcrumbs>
+                    <script>
+                        const list = document.getElementById('list');
+                        list.parts = ['jump', 'to', 'the', 'next', 'beat'];
+                        list.push('parts', 'lol');
+                    </script>
+                </template>
+            </demo-snippet>
+            <h3>Basic kwc-file-breadcrumbs with cutom template</h3>
+            <demo-snippet>
+                <template>
+                    <kwc-file-breadcrumbs id="custom-list">
+                        <template>
+                            <span hidden$="[[!index]]">+++</span>
+                            <span class="custom">[[item]]</span>
+                        </template>
+                    </kwc-file-breadcrumbs>
+                    <style>
+                        span.custom {
+                            color: red;
+                        }    
+                    </style>
+                    <script>
+                        const customList = document.getElementById('custom-list');
+                        customList.parts = ['jump', 'to', 'the', 'next', 'beat'];
+                        customList.push('parts', 'lol');
+                    </script>
+                </template>
+            </demo-snippet>
+        </div>
+    </body>
+
+</html>
