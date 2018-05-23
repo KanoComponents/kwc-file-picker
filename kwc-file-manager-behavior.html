@@ -93,7 +93,7 @@
             _computeDirectory () {
                 return this._getDirectory(this.breadcrumbs, this.path);
             },
-            _getDirectory (breadcrumbs, path) {
+            _getDirectory (breadcrumbs = [], path) {
                 if (!this._directoryCache[path]) {
                     let dir = this.rootDir;
                     const parts = breadcrumbs.slice(0);
