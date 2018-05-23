@@ -1,0 +1,10 @@
+{
+    "files": {
+        "kwc-file-manager-behavior.html": {
+            "convertedUrl": "kwc-file-manager-behavior.js",
+            "exports": {
+                "Kano.KwcFileManagerBehavior": "KwcFileManagerBehavior"
+            }
+        }
+    }
+}

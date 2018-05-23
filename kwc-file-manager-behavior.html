@@ -1,7 +1,13 @@
 <script>
-    (Kano => {
-        // @polymerBehavior
-        Kano.KwcFileManagerBehavior = {
+    (() => {
+        /**
+         * @namespace Kano
+         */
+        window.Kano = window.Kano || {}
+        /**
+         * @polymerBehavior
+         */
+        window.Kano.KwcFileManagerBehavior = {
             properties: {
                 /**
                  * Root of the file tree. Each node have a name, and can have children
@@ -178,5 +184,5 @@
                 this.path = this.selectedPath;
             }
         };
-    })(window.Kano = window.Kano || {});
+    })();
 </script>
