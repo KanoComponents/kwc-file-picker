@@ -1,9 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-list/iron-list.html">
-<link rel="import" href="./kwc-file-manager-behavior.html">
-<link rel="import" href="./kwc-file-breadcrumbs.html">
-
-<!--
+/**
 `kwc-file-picker-list`
 Display a list of items from a tree as a file picker would.
 
@@ -26,10 +21,21 @@ Example:
 @group Kano Elements
 @hero hero.svg
 @demo demo/index.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<dom-module id="kwc-file-picker-list">
-    <template>
+import '@polymer/iron-list/iron-list.js';
+import { KwcFileManagerBehavior } from './kwc-file-manager-behavior.js';
+import './kwc-file-breadcrumbs.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+Polymer({
+  _template: html`
         <style>
             :host {
                 display: block;
@@ -41,14 +47,11 @@ Example:
         <iron-list items="[[fileList]]" as="item">
             <slot></slot>
         </iron-list>
-    </template>
+`,
 
-    <script>
-        Polymer({
-            is: 'kwc-file-picker-list',
-            behaviors: [
-                window.Kano.KwcFileManagerBehavior,
-            ],
-        });
-    </script>
-</dom-module>
+  is: 'kwc-file-picker-list',
+
+  behaviors: [
+      KwcFileManagerBehavior,
+  ]
+});
