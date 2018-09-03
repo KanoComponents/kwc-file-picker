@@ -7,30 +7,47 @@
 
         <title>kwc-file-picker-list demo</title>
 
-        <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+        <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-        <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-        <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-        <link rel="import" href="../kwc-file-picker-list.html">
+        <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+        <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+        <script type="module" src="../kwc-file-picker-list.js"></script>
 
-        <custom-style>
+        <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
             <style is="custom-style" include="demo-pages-shared-styles">
                 [hidden] {
                     display: none !important;
                 }
             </style>
-        </custom-style>
+        </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
     </head>
 
     <body>
-        <div class="vertical-section-container centered">
+        <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
             <h3>Basic kwc-file-picker-list demo</h3>
             <demo-snippet>
                 <template>
                     <!-- A template is required to render the elements of a directory -->
                     <kwc-file-picker-list id="list">
                         <template>
-                            <button path-name$="[[item.name]]">[[item.name]]</button>
+                            <button path-name\$="[[item.name]]">[[item.name]]</button>
                         </template>
                     </kwc-file-picker-list>
                     <script>
@@ -52,7 +69,7 @@
                                 }]
                             }]
                         };
-                    </script>
+                    &lt;/script>
                 </template>
             </demo-snippet>
             <h3>Customised kwc-file-picker-list demo</h3>
@@ -60,16 +77,16 @@
                 <template>
                     <kwc-file-picker-list id="custom-list">
                         <template slot="breadcrumbs">
-                            <span hidden$="[[!index]]">&gt;</span>
-                            <span path-index$="[[index]]">[[item]]</span>
+                            <span hidden\$="[[!index]]">&gt;</span>
+                            <span path-index\$="[[index]]">[[item]]</span>
                         </template>
                         <template>
                             <div>
-                                <button class="item" path-name$="[[item.name]]" hidden$="[[!item.children]]">
+                                <button class="item" path-name\$="[[item.name]]" hidden\$="[[!item.children]]">
                                     <span>[[item.name]]</span>
                                     <span>&gt;</span>
                                 </button>
-                                <div class="item" hidden$="[[item.children]]">
+                                <div class="item" hidden\$="[[item.children]]">
                                     <span>[[item.name]]</span>
                                 </div>
                             </div>            
@@ -115,10 +132,10 @@
                                 }]
                             }]
                         };
-                    </script>
+                    &lt;/script>
                 </template>
             </demo-snippet>
-        </div>
-    </body>
+        </div>`;
 
-</html>
+document.body.appendChild($_documentContainer.content);
+</script>
